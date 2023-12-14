@@ -8,3 +8,9 @@ Run the following installations,
 - `sudo apt lm-sensors`
 - `sudo apt install neofetch`,
 - `sudo apt install mesa-utils`.
+
+After that, symlink the `.conkyrc` file to your root directory.
+
+```
+ln -s /path/to/this/repo/.conkyrc ~/.conkyrc
+```
