@@ -12,13 +12,14 @@
         cpu_avg_samples = 1,
         own_window = true,
         own_window_type = "normal",
-        own_window_hints = "undecorated,below,sticky,skip_taskbar,skip_pager",
+        own_window_hints = "undecorated,above,sticky,skip_taskbar,skip_pager",
         own_window_transparent = false,
         own_window_argb_visual = true,
         own_window_argb_value = 0,
         own_window_colour = "000000",
         double_buffer = true,
         use_xft = true,
+        xinerama_head = 1,
         font = "Arial:size=11",
         short_units = true,
         draw_graph_borders = true,
@@ -44,7 +45,7 @@
         ${goto 0}${color}${font}${stippled_hr 2}
         # CPU
         ${alignc}${color4}${font Arial:bold:size=11}${execi 65000 cat /proc/cpuinfo | grep 'model name' | sed -e 's/model name.*: //' | sed -e 's/Processor//'  | sed -e 's/(tm)/™/' | sed -e 's/(R)//' | sed -e 's/CPU//' | sed -e 's/@/:/' | sed -e 's/\ \ //' | sed -e 's/[0-9].[0-9][0-9]GHz//' | uniq}
-        ${goto 8}${color1}${font Terminus(TTF):size=11}Average: ${color2}${font Terminus(TTF):bold:size=11}${goto 126}${cpu cpu0}${color1} %${goto 203}${color2}${font Terminus(TTF):bold:size=11}${freq 0}${goto 238}${font}${color1}Mhz
+        ${goto 8}${color1}${font Terminus(TTF):size=11}Average: ${color2}${font Terminus(TTF):bold:size=11}${goto 126}${cpu cpu0}${color1} %${goto 203}${color2}${font Terminus(TTF):bold:size=11}${freq 0}${goto 238}${font}${color1}  Mhz
         ${goto 10}${color6}${cpubar cpu0 10,260}
         ${goto 5}${voffset -16}${color9}${font Arial:size=12}└───────────────────────────┘${goto 67}┴${goto 134}┴${goto 201}┴
         # CPU GRAPH
@@ -110,22 +111,22 @@
         ${goto 0}${color}${font}${stippled_hr 2}
         # NETWORK
         ${alignc}${color4}${font Arial:bold:size=11}NETWORK ${font}
-        ${if_existing /sys/class/net/enp4s0/operstate up}${goto 10}${voffset 5}${color}${font}${color}LAN : ${color2}${addr enp4s0}
-        ${goto 10}${voffset 5}${color}Upload: ${color2}${upspeed enp4s0}${goto 155}${color5}${upspeedgraph enp4s0 10,100 fc8c3b c6396b -t}
-        ${goto 10}${color}Download: ${color2}${downspeed enp4s0}${goto 155}${color5}${downspeedgraph enp4s0 10,100 fc8c3b c6396b -t}
-        ${goto 10}${voffset 5}${color}Up: ${color2}${totalup enp4s0}${color}${alignr 10}Down: ${color2}${totaldown enp4s0} ${else} ${endif}
+        ${if_existing /sys/class/net/enp6s0/operstate up}${goto 10}${voffset 5}${color}${font}${color}LAN : ${color2}${addr enp6s0}
+        ${goto 10}${voffset 5}${color}Upload: ${color2}${upspeed enp6s0}${goto 155}${color5}${upspeedgraph enp6s0 10,100 fc8c3b c6396b -t}
+        ${goto 10}${color}Download: ${color2}${downspeed enp6s0}${goto 155}${color5}${downspeedgraph enp6s0 10,100 fc8c3b c6396b -t}
+        ${goto 10}${voffset 5}${color}Up: ${color2}${totalup enp6s0}${color}${alignr 10}Down: ${color2}${totaldown enp6s0} ${else} ${endif}
         #  Wifi
-        ${if_existing /sys/class/net/wlan0/operstate up}${goto 10}${voffset 5}${color}${color}LAN : ${color2}${addr wlan0}
-        ${goto 10}${voffset 5}${color}Upload: ${color2}${upspeed wlan0}${goto 175}${color5}${upspeedgraph wlan0 10,100 fc8c3b c6396b -t}
-        ${goto 10}${color}Download: ${color2}${downspeed wlan0}${goto 175}${color5}${downspeedgraph wlan0 10,100 fc8c3b c6396b -t}
-        ${goto 10}${voffset 5}${color}Up: ${color2}${totalup wlan0}${color}${alignr 10}Down: ${color2}${totaldown wlan0}
+        # ${if_existing /sys/class/net/wlan0/operstate up}${goto 10}${voffset 5}${color}${color}LAN : ${color2}${addr wlan0}
+        # ${goto 10}${voffset 5}${color}Upload: ${color2}${upspeed wlan0}${goto 175}${color5}${upspeedgraph wlan0 10,100 fc8c3b c6396b -t}
+        # ${goto 10}${color}Download: ${color2}${downspeed wlan0}${goto 175}${color5}${downspeedgraph wlan0 10,100 fc8c3b c6396b -t}
+        # ${goto 10}${voffset 5}${color}Up: ${color2}${totalup wlan0}${color}${alignr 10}Down: ${color2}${totaldown wlan0}
         # Signal
-        ${goto 0}${voffset 5}${color4}Wifi Signal
-        ${goto 10}${voffset 5}${color FF0000}0%${goto 240}${color FF7F00}${wireless_link_qual_perc wlan0}%
-        ${goto 10}${color FFFFFF}${wireless_link_bar 12,260 wlan0}
-        ${goto 10}${color FF0000}Bad ${goto 125}${color FFFF00}Good ${goto 240}${color FF7F00}Excellent
+        # ${goto 0}${voffset 5}${color4}Wifi Signal
+        # ${goto 10}${voffset 5}${color FF0000}0%${goto 240}${color FF7F00}${wireless_link_qual_perc wlan0}%
+        # ${goto 10}${color FFFFFF}${wireless_link_bar 12,260 wlan0}
+        # ${goto 10}${color FF0000}Bad ${goto 125}${color FFFF00}Good ${goto 240}${color FF7F00}Excellent
         # Battery
-        ${goto 10}${voffset 5}${color}Battery:${color FF7F00}${goto 55}${battery_time BAT1}
-        ${goto 10}${color 008000}${battery_bar 20,260 BAT1}${goto 200}${color FF0000}${goto 85}${battery_percent BAT1}% ${else}${endif}
+        # ${goto 10}${voffset 5}${color}Battery:${color FF7F00}${goto 55}${battery_time BAT1}
+        # ${goto 10}${color 008000}${battery_bar 20,260 BAT1}${goto 200}${color FF0000}${goto 85}${battery_percent BAT1}% ${else}${endif}
         ${color}${stippled_hr}
         ]]
